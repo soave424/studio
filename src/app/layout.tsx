@@ -16,7 +16,7 @@ const notoSansKr = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: 'Team Weaver AI',
+  title: 'Grouping AI',
   description: 'AI-powered team organization tool to create balanced and engaged groups.',
 };
 

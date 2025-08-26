@@ -255,7 +255,7 @@ export default function TeamWeaverPage() {
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
       <header className="text-center mb-8">
-        <h1 className="text-4xl sm:text-5xl font-bold text-primary tracking-tight">Team Weaver AI</h1>
+        <h1 className="text-4xl sm:text-5xl font-bold text-primary tracking-tight">Grouping AI</h1>
         <p className="mt-2 text-lg text-muted-foreground">✨ AI로 스마트하게 조를 편성하고 완벽한 팀워크를 만드세요.</p>
       </header>
 
@@ -280,7 +280,7 @@ export default function TeamWeaverPage() {
                 id="member-data"
                 rows={12}
                 className="text-base"
-                placeholder={`예시)\n1. 홍길동, 남, 경기과학고등학교, 경기 수원\n2. 이순신, 남, 남양주초등학교, 서울`}
+                placeholder={`예시)\n1. 홍길동, 남, 경기과학고등학교, 경기 수원\n2. 이순신, 남, 남양주초등학교, 서울\n3. 조은하, 여, 양지중학교, 강원`}
                 value={rawText}
                 onChange={(e) => setRawText(e.target.value)}
               />
