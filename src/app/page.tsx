@@ -88,54 +88,27 @@ export default function TeamWeaverPage() {
   const createBalancedTeams = (students: Student[], targetTeamSize: number): Student[][] => {
     const totalStudents = students.length;
     if (totalStudents === 0) return [];
-
-    const sortedStudents = [...students].sort((a, b) => {
-        const regionCompare = a.region.localeCompare(b.region);
-        if (regionCompare !== 0) return regionCompare;
-        const schoolCompare = a.school.localeCompare(b.school);
-        if (schoolCompare !== 0) return schoolCompare;
-        return a.gender.localeCompare(b.gender);
-    });
-
-    const teams: Student[][] = [];
-    let currentTeam: Student[] = [];
-
-    sortedStudents.forEach(student => {
-        if (currentTeam.length >= targetTeamSize) {
-            teams.push(currentTeam);
-            currentTeam = [];
-        }
-        currentTeam.push(student);
-    });
-
-    if (currentTeam.length > 0) {
-        teams.push(currentTeam);
-    }
+  
+    // Determine the optimal number of teams
+    const numTeams = Math.round(totalStudents / targetTeamSize);
+    const actualNumTeams = numTeams === 0 ? 1 : numTeams;
     
-    // Logic to handle teams with very few members
-    const smallTeamThreshold = Math.floor(targetTeamSize / 2);
-    const lastTeam = teams[teams.length - 1];
-
-    if (teams.length > 1 && lastTeam.length <= smallTeamThreshold) {
-        const lastTeamMembers = teams.pop() as Student[];
-        let memberIndex = 0;
-        while(memberIndex < lastTeamMembers.length) {
-            for (let i = 0; i < teams.length; i++) {
-                if(memberIndex >= lastTeamMembers.length) break;
-                if (teams[i].length < targetTeamSize + 2) { // Avoid making teams too large
-                    teams[i].push(lastTeamMembers[memberIndex]);
-                    memberIndex++;
-                }
-            }
-            // If some members are left (because all teams are full), create a new small team for them.
-            if(memberIndex < lastTeamMembers.length && teams.every(t => t.length >= targetTeamSize + 2)) {
-                teams.push(lastTeamMembers.slice(memberIndex));
-                break;
-            }
-        }
-    }
-
-
+    // Sort students to ensure some level of diversity in teams
+    const sortedStudents = [...students].sort((a, b) => {
+      const regionCompare = a.region.localeCompare(b.region);
+      if (regionCompare !== 0) return regionCompare;
+      const schoolCompare = a.school.localeCompare(b.school);
+      if (schoolCompare !== 0) return schoolCompare;
+      return a.gender.localeCompare(b.gender);
+    });
+  
+    const teams: Student[][] = Array.from({ length: actualNumTeams }, () => []);
+    
+    // Distribute students one by one into teams
+    sortedStudents.forEach((student, index) => {
+      teams[index % actualNumTeams].push(student);
+    });
+  
     return teams;
   };
 
