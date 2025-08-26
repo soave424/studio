@@ -20,8 +20,9 @@ import { Separator } from '@/components/ui/separator';
 
 const presetData = `1. 홍길동, 남, 경기과학고등학교, 경기 수원
 2. 이순신, 남, 남양주초등학교, 서울
-3. 유관순, 여, 양지중학교, 경기
-4. 신나는학교, 김민준, 남, 고`;
+3. 조은하, 여, 양지중학교, 강원
+4. 유관순, 여, 양지중학교, 경기
+5. 신나는학교, 김민준, 남, 고`;
 
 type AppState = 'input' | 'review' | 'results';
 
@@ -87,21 +88,21 @@ export default function TeamWeaverPage() {
   const createBalancedTeams = (students: Student[], targetTeamSize: number): Student[][] => {
     const totalStudents = students.length;
     if (totalStudents === 0) return [];
-
-    let numTeams = Math.max(1, Math.round(totalStudents / targetTeamSize));
-
+  
+    const numTeams = Math.ceil(totalStudents / targetTeamSize);
+  
     const sortedStudents = [...students].sort((a, b) => {
       const regionCompare = a.region.localeCompare(b.region);
       if (regionCompare !== 0) return regionCompare;
       return a.school.localeCompare(b.school);
     });
-
+  
     const teams: Student[][] = Array.from({ length: numTeams }, () => []);
-
+  
     sortedStudents.forEach((student, index) => {
       teams[index % numTeams].push(student);
     });
-
+  
     return teams;
   };
 
@@ -506,3 +507,5 @@ export default function TeamWeaverPage() {
     </div>
   );
 }
+
+    
