@@ -1,9 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // output: "export", // 정적 export 모드 추가
-  // distDir: "docs", // GitHub Pages용 폴더
-
   typescript: {
     ignoreBuildErrors: true,
   },
