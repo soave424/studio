@@ -87,9 +87,9 @@ export default function TeamWeaverPage() {
   const createBalancedTeams = (students: Student[], targetTeamSize: number): Student[][] => {
     const totalStudents = students.length;
     if (totalStudents === 0) return [];
-    
+
     let numTeams = Math.max(1, Math.round(totalStudents / targetTeamSize));
-    
+
     const sortedStudents = [...students].sort((a, b) => {
       const regionCompare = a.region.localeCompare(b.region);
       if (regionCompare !== 0) return regionCompare;
@@ -97,9 +97,9 @@ export default function TeamWeaverPage() {
     });
 
     const teams: Student[][] = Array.from({ length: numTeams }, () => []);
-    
+
     sortedStudents.forEach((student, index) => {
-        teams[index % numTeams].push(student);
+      teams[index % numTeams].push(student);
     });
 
     return teams;
